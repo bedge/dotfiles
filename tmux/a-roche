@@ -1,0 +1,9 @@
+SESSION=a-local
+HIST_ID=$SESSION.main
+new -n $SESSION -s $SESSION
+
+neww -n admin "reatuns -l $SHELL"
+neww -n fw "reatuns -l $SHELL"
+neww -n sh "reatuns -l $SHELL"
+neww -n sh "reatuns -l $SHELL"
+# vim: ft=sh

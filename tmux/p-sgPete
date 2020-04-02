@@ -1,0 +1,10 @@
+SESSION=a-sgPete
+HIST_ID=$SESSION.main
+new -n $SESSION -s $SESSION
+
+neww -n home  -c ~/ "reatuns -l $SHELL"
+neww -n sgPete -c ~/git/ASE/sas-ops "reatuns -l $SHELL"
+neww -n sgPete-sync -c ~/git/ASE/sas-ops "reatuns -l $SHELL"
+neww -n sgPete-test -c ~/git/ASE/sas-ops "reatuns -l $SHELL"
+neww -n sgPete-buki -c ~/git/ASE/sas-ops.adenijib "reatuns -l $SHELL"
+# vim: ft=sh
