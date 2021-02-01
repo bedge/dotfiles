@@ -1,9 +1,0 @@
-SESSION=a-nghc
-HIST_ID=$SESSION.main
-new -n $SESSION -s $SESSION
-
-neww -n home  -c ~/ "reatuns -l $SHELL"
-neww -n nghc -c ~/git/tesseract/operations "reatuns -l $SHELL"
-neww -n nghc-sync -c ~/git/tesseract/operations.edgeb1-sync "reatuns -l $SHELL"
-neww -n nghc-test -c ~/git/tesseract "reatuns -l $SHELL"
-# vim: ft=sh

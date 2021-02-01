@@ -1,5 +1,6 @@
 local _old_path="$PATH"
 
+[ "$DEBUG" ] && echo $0 zshenv start
 # Local config
 [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
 
@@ -27,3 +28,4 @@ MSG
 fi
 
 unset _old_path
+[ "$DEBUG" ] && echo $0 zshenv end

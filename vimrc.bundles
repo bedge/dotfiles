@@ -2,55 +2,40 @@ if &compatible
   set nocompatible
 end
 
-" Remove declared plugins
-function! s:UnPlug(plug_name)
-  if has_key(g:plugs, a:plug_name)
-    call remove(g:plugs, a:plug_name)
-  endif
-endfunction
-command!  -nargs=1 UnPlug call s:UnPlug(<args>)
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
-let g:has_async = v:version >= 800 || has('nvim')
-
-call plug#begin('~/.vim/bundle')
+" Let Vundle manage Vundle
+Plugin 'gmarik/Vundle.vim'
 
 " Define bundles via Github repos
-Plug 'christoomey/vim-run-interactive'
+Plugin 'christoomey/vim-run-interactive'
+Plugin 'croaky/vim-colors-github'
+Plugin 'danro/rename.vim'
+Plugin 'kchmck/vim-coffee-script'
+"Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'pbrisbin/vim-mkdir'
+Plugin 'scrooloose/syntastic'
+Plugin 'slim-template/vim-slim'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/ctags.vim'
+Plugin 'vim-scripts/matchit.zip'
+Plugin 'vim-scripts/tComment'
 
-" If fzf has already been installed via Homebrew, use the existing fzf
-" Otherwise, install fzf. The `--all` flag makes fzf accessible outside of vim
-if isdirectory("/usr/local/opt/fzf")
-  Plug '/usr/local/opt/fzf'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-endif
+":verbose set nocompatible?
 
-Plug 'junegunn/fzf.vim'
-Plug 'elixir-lang/vim-elixir'
-Plug 'fatih/vim-go'
-Plug 'janko-m/vim-test'
-Plug 'pangloss/vim-javascript'
-Plug 'pbrisbin/vim-mkdir'
-Plug 'slim-template/vim-slim'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-surround'
-Plug 'vim-ruby/vim-ruby'
-Plug 'vim-scripts/tComment'
-
-if g:has_async
-  Plug 'dense-analysis/ale'
-endif
-
+":breakadd here
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
 endif
 
-call plug#end()
+call vundle#end()
+filetype on

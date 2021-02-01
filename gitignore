@@ -16,3 +16,16 @@ log/*.log
 rerun.txt
 tags
 tmp/**/*
+.history/
+.mypy_cache/
+.history/*
+.notes/*
+.notes
+**/.junk/*
+**/.groovylintrc.json
+**/jcasc-schema.json
+**/local-storage.json
+
+# vsc
+**/.history/*
+

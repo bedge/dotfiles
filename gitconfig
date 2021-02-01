@@ -1,29 +1,136 @@
-[init]
-  templatedir = ~/.git_template
-[push]
-  default = current
-[color]
-  ui = auto
-[alias]
-  aa = add --all
-  ap = add --patch
-  branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
-  ci = commit -v
-  co = checkout
-  pf = push --force-with-lease
-  st = status
-[core]
-  excludesfile = ~/.gitignore
-  autocrlf = input
+;[cola]
+;	savewindowsettings = false
 [merge]
   ff = only
-[commit]
-  template = ~/.gitmessage
+
+[diff]
+	colorMoved = zebra
+[color]
+	ui = auto
+;	status = auto
+;	branch = auto
+;	ui = true
+;	diff = true
+	tool = vimdiff
+[core]
+	excludesfile = /Users/edgeb1/.gitignore
+	quotepath = false
+	editor = "nvim"
+	sshCommand = ssh -i ~/.ssh/id_rsa_edgeb1
+    ; pager = "vim"
+    ; less..sh doesn't render ansi esacpe seq
+;	pager = /usr/local/share/nvim/runtime/macros/less.sh 
+[github]
+	user = bedge
+[format]
+;	pretty = %Cred%h%Creset %aN -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset
+	pretty = %h %aN -%d %s (%cr)
+[alias]
+	aa = add --all
+	br = branch
+	branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+	ci = commit -v
+	co = checkout
+	dc = diff --cached
+	df = diff
+	dfw = diff --ignore-space-change
+	drb = !sh -c \"git branch -d $1 && git push origin --delete refs/heads/$1\"
+	drt = !sh -c \"git tag -d $1 && git push origin --delete refs/tags/$1\"
+	ds = diff --staged
+	last = !git --no-pager log  --date=local -1 HEAD
+	lf = log        --graph --date=local --pretty=tformat:'%C(red)%h%Creset -%C(magenta)%d%Creset %C(cyan)%s %C(green)%cd %C(blue)%cr%C(yellow) %an%Creset' --abbrev-commit
+	lfa = log --all --graph --date=local --pretty=tformat:'%C(red)%h%Creset -%C(magenta)%d%Creset %C(cyan)%s %C(green)%cd %C(blue)%cr%C(yellow) %an%Creset' --abbrev-commit
+	lg = log --date=local --pretty=format:"%h%x09%an%x09%ad%x09%s"
+	lg = log -p
+	lgn = log -p --name-only
+	new = !sh -c 'git log $1@{1}..$1@{0} "$@"'
+	st = status
+	unstage = reset --
+	visual = !gitk
+	whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
+	who = shortlog -s --
+	whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+
+  # Commit diff between branches $1, $2, for files below $3 (all shifted because of wierd git aliasing)
+	ldiffl = "!sh -c -x 'git log --left-right --graph --cherry-pick --oneline --pretty=full $0...$1 $2'"
+	# ldiff = "!sh -c -x 'git log --left-right --graph --cherry-pick --oneline $0...$1 $2'"
+  ldiff = "!sh -c -x 'git log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset\" --abbrev-commit --date=relative $0...$1 $2'"
+
+	fdiff = diff --name-only --ignore-all-space
+
+; Replacement for git-up, https://github.com/aanand/git-up
+	up = !git fetch && git rebase --autostash FETCH_HEAD
+  	fup = !git fetch upstream && git rebase --autostash upstream/$(git symbolic-ref HEAD | sed -e "s,refs/heads/,,")
+  	fupd = !git fetch upstream develop && git rebase --autostash upstream/develop
+
+	ccc = -v log
+	d = difftool
+
+    # pretty log
+    plog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit #--date=relative
 [fetch]
   prune = true
 [rebase]
   autosquash = true
+
+[push]
+	default = simple
+[branch]
+	autosetuprebase = always
+[credential]
+	helper = osxkeychain
+[mergetool]
+	keepBackup = false
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+[pager]
+;[commit]
+;	template = /Users/bedge/.stCommitMsg
+
+; No more sourcetree
+
+; [difftool "sourcetree"]
+; 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+; 	path =
+; [mergetool "sourcetree"]
+; 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+; 	trustExitCode = true
+
+; Try intellij for a bit
+; https://gist.github.com/rambabusaravanan/1d1902e599c9c680319678b0f7650898
+
+[merge]
+    tool = intellij
+[mergetool "intellij"]
+    cmd = /usr/local/bin/idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")
+    trustExitCode = true
+
+[diff]
+    tool = intellij
+[difftool "intellij"]
+    cmd = /usr/local/bin/idea diff $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE")
+
+
+[commit]
+	template = ~/.gitmessage
+
 [include]
   path = ~/.gitconfig.local
-[diff]
-  colorMoved = zebra
+[user]
+	name = Bruce Edge
+	email = bruce.edge@roche.com
+[git-up "bundler"]
+	check = false
+[git-up]
+	auto = true
+[git-up "update"]
+	check = true
+[pull]
+	rebase = true
