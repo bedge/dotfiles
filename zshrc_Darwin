@@ -1,0 +1,48 @@
+#!/bin/bash
+
+[ "$DEBUG" ] && echo $0 start
+
+# brew installed
+#fpath=(/usr/local/share/zsh-completions $fpath)
+# fpath=(/usr/local/share/zsh/site-functions $fpath)
+#
+# OSX specific from submodule
+#fpath=(~/.zsh/osx-zsh-completions/ $fpath)
+#fpath=(~/.zsh/misc/ $fpath)
+
+# # jenv setup
+# if [ ! "${JENV_LOADED}" ] || [ "${JAVA_HOME}" ] ; then
+#   addPath /Users/bedge/.jenv/shims
+#   source /usr/local/Cellar/jenv/*/libexec/completions/jenv.zsh
+#   # Only do this once
+#   JENV_CACHE=${ENV_CACHE}/jenv
+#   if [ ! -e "${JENV_CACHE}" ] ; then
+#     jenv rehash 2>/dev/null
+#     touch ${JENV_CACHE}
+#   fi
+#   export JENV_LOADED=1
+#   unset JAVA_HOME
+# fi
+
+# jenv() {
+#   typeset command
+#   command="$1"
+#   if [ "$#" -gt 0 ]; then
+#     shift
+#   fi
+
+#   case "$command" in
+#   enable-plugin|rehash|shell|shell-options)
+#     eval `jenv "sh-$command" "$@"`;;
+#   *)
+#     command jenv "$command" "$@";;
+#   esac
+# }
+
+addPath /usr/local/bin
+addPath /usr/local/sbin
+addPath /usr/local/opt/*/libexec/gnubin
+addPath /usr/local/opt/cureutils/libexec/gnubin
+addPath /usr/local/bin/aws
+
+[ "$DEBUG" ] && echo $0 end

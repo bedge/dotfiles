@@ -124,10 +124,10 @@
 [include]
   path = ~/.gitconfig.local
 [user]
-; 	name = Bruce Edge
-	name = bedge
-; 	email = bruce.edge@roche.com
-	email = bruce.edge@gmail.com
+	name = Bruce Edge
+; 	name = bedge
+	email = bruce.edge@roche.com
+; 	email = bruce.edge@gmail.com
 [git-up "bundler"]
 	check = false
 [git-up]

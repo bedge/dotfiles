@@ -1,0 +1,10 @@
+set -a
+
+RIPGREP_CONFIG_PATH=~/.ripgreprc
+[ "$DEBUG" ] && echo $0 "envname=${envname}"
+if [ "${envname}" ] ; then
+    export HISTFILE=~/.history/${SESSION}/${envname}
+else
+    export HISTFILE=~/.history/${SESSION}/main
+fi
+set +a
