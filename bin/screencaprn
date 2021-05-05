@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# https://apple.stackexchange.com/a/251393/69592
+
+# ~/Library/LaunchAgents/usr.screenshot.rename.plist
+# launchctl load ~/Library/LaunchAgents/usr.screenshot.rename.plist
+
+set -x
+exec > >(tee -a "$HOME/tmp/ss.log") 2>&1
+
+pwd
+export DEBUG=1
+find ~/Desktop -name "Screen Shot*.png" -print0 | xargs -0 -I {} ~/.bin/rename-ss.sh "{}"
+
